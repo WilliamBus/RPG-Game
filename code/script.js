@@ -84,10 +84,22 @@ const locations = [
   },
   {
     name: "easter egg",
-    "button text": ["2", "8", "Go to town square?"],
-    "button functions": [pickTwo, pickEight, goTown],
+    "button text": ["1", "5", "10"],
+    "button functions": [pickOne, pickFive, pickTen],
     text: "You find a secret game. Pick a number above. Ten numbers will be randomly chosen between 0 and 10. If the number you choose matches one of the random numbers, you win!"
-  }
+  },
+  {
+    name: "town square",
+    "button text": ["Go to store", "Go to cave", "Fight dragon"],
+    "button functions": [goStore, goCave, fightDragon],
+    text: "YOU WON THE EASTER EGG GAME! YOU HAVE RESTARTED WITH 20 ADDITIONAL GOLD!!!"
+  },
+  {
+    name: "town square",
+    "button text": ["Go to store", "Go to cave", "Fight dragon"],
+    "button functions": [goStore, goCave, fightDragon],
+    text: "You have lost the easter egg game :(. You have restarted with 20 less gold :(."
+  },
 ];
 
 // initialize buttons
@@ -108,6 +120,14 @@ function update(location) {
 
 function goTown() {
   update(locations[0]);
+}
+
+function goTown2() {
+  update(locations[8]);
+}
+
+function goTown3() {
+  update(locations[9]);
 }
 
 function goStore() {
@@ -252,16 +272,68 @@ function restart() {
   goTown();
 }
 
+function restart2() {
+  xp = 0;
+  health = 100;
+  gold = 70;
+  currentWeapon = 0;
+  inventory = ["stick"];
+  goldText.innerText = gold;
+  healthText.innerText = health;
+  xpText.innerText = xp;
+  goTown2();
+}
+
+function restart3() {
+  xp = 0;
+  health = 100;
+  gold = 30;
+  currentWeapon = 0;
+  inventory = ["stick"];
+  goldText.innerText = gold;
+  healthText.innerText = health;
+  xpText.innerText = xp;
+  goTown3();
+}
+
+function eggWin() {
+  xp = 0;
+  health = 100;
+  gold = 70;
+  currentWeapon = 0;
+  inventory = ["stick"];
+  goldText.innerText = gold;
+  healthText.innerText = health;
+  xpText.innerText = xp;
+  restart2()
+}
+
+function eggLose() {
+  xp = 0;
+  health = 100;
+  gold = 30;
+  currentWeapon = 0;
+  inventory = ["stick"];
+  goldText.innerText = gold;
+  healthText.innerText = health;
+  xpText.innerText = xp;
+  restart3()
+}
+
 function easterEgg() {
   update(locations[7]);
 }
 
-function pickTwo() {
-  pick(2);
+function pickOne() {
+  pick(1);
 }
 
-function pickEight() {
-  pick(8);
+function pickFive() {
+  pick(5);
+}
+
+function pickTen() {
+  pick(10);
 }
 
 function pick(guess) {
@@ -275,14 +347,9 @@ function pick(guess) {
   }
   if (numbers.includes(guess)) {
     text.innerText += "Right! You win 20 gold!";
-    gold += 20;
-    goldText.innerText = gold;
+    eggWin()
   } else {
-    text.innerText += "Wrong! You lose 10 health!";
-    health -= 10;
-    healthText.innerText = health;
-    if (health <= 0) {
-      lose();
-    }
+    text.innerText += "Wrong! You lose 10 gold!";
+    eggLose()
   }
 }
