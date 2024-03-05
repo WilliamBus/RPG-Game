@@ -73,7 +73,7 @@ const locations = [
   {
     name: "lose",
     "button text": ["REPLAY?", "REPLAY?", "REPLAY?"],
-    "button functions": [restart, restart, restart],
+    "button functions": [easterEgg, restart, restart],
     text: "You die. &#x2620;"
   },
   { 
